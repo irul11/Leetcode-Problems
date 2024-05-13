@@ -1,36 +1,25 @@
 class Solution:
-    def threeSumClosest(self, nums, target) -> int:
-        if len(nums) < 3:
-            return []
-
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        n = len(nums)
         nums.sort()
-        result = float('inf')
-        curr = 0
-
-        while curr <= len(nums) - 3:
-            if curr > 0 and nums[curr] == nums[curr - 1]:
-                curr += 1
+        result = inf
+        
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i-1]:
                 continue
 
-            left = curr + 1
-            right = len(nums) - 1
-
+            left = i + 1
+            right = n - 1            
             while left < right:
-                three_sum = nums[curr] + nums[left] + nums[right]
-
-                if three_sum < target:
-                    left += 1
-
-                elif three_sum > target:
+                total = nums[i] + nums[left] + nums[right]
+                if abs(result-target) > abs(total-target):
+                    result = total
+                if total > target:
                     right -= 1
-
+                elif total < target:
+                    left += 1
                 else:
-                    return three_sum
-
-                if abs(three_sum - target) < abs(result - target):
-                    result = three_sum
-
-            curr += 1
-
+                    return target
+                # print(result)
         return result
-
+        
