@@ -6,13 +6,15 @@
 class Solution:
     def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
         sets = set(nums)
-        ans = ListNode()
-        curr = ans
-        
-        while head:
-            if head.val not in sets:
-                curr.next = ListNode(head.val)
-                curr = curr.next
-            head = head.next
 
-        return ans.next
+        head = ListNode(0, head)
+        cur = head
+
+        while cur:
+            if cur.next and cur.next.val in sets:
+                cur.next = cur.next.next if cur.next.next else None
+            else:
+                cur = cur.next
+        
+        return head.next
+        
